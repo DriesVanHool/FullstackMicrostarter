@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="GatewayService"/>
+
+    <property name="SERVICE_LOG_DIR" value="${LOG_ROOT:-logs}/gateway-service"/>
+    <property name="LOG_FILE" value="${SERVICE_LOG_DIR}/application.log"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] ${appName} %logger{36} - %msg%n"/>
+    <property name="MAX_FILE_SIZE" value="${LOG_MAX_FILE_SIZE:-50MB}"/>
+    <property name="MAX_HISTORY" value="${LOG_MAX_HISTORY:-30}"/>
+    <property name="TOTAL_SIZE_CAP" value="${LOG_TOTAL_SIZE_CAP:-2GB}"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${SERVICE_LOG_DIR}/application.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping" level="WARN"/>
+    <logger name="org.springframework.cloud.gateway.filter.factory" level="WARN"/>
+    <logger name="com.driesvanhool.fullstackmicrostarter.gatewayservice" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

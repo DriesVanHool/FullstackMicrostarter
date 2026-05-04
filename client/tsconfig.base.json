@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0",
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "paths": {
+      "@fullstackmicrostarter/api-client": ["./packages/api-client/src/index.ts"],
+      "@fullstackmicrostarter/auth": ["./packages/auth/src/index.ts"],
+      "@fullstackmicrostarter/layout": ["./packages/layout/src/index.ts"],
+      "@fullstackmicrostarter/ui": ["./packages/ui/src/index.ts"]
+    },
+    "types": ["vite/client"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}

@@ -1,0 +1,430 @@
+:root {
+  --bg: #f6f8fb;
+  --bg-bottom: #eef3f9;
+  --surface: rgba(255, 255, 255, 0.96);
+  --border: #dbe4ef;
+  --border-strong: rgba(219, 228, 239, 0.95);
+  --border-focus: rgba(59, 130, 246, 0.68);
+  --text: #0f172a;
+  --muted: #475569;
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --radius: 10px;
+  --card-radius: 16px;
+  --card-shadow: 0 18px 38px rgba(15, 23, 42, 0.06);
+  --input-surface: #ffffff;
+}
+
+/* ── Reset any PatternFly / Keycloak chrome ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body.login-pf,
+.login-pf-page {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.1) 0%, transparent 38%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-bottom) 100%) !important;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--text);
+}
+
+/* Kill every pseudo-element decoration */
+body.login-pf::before,
+body.login-pf::after,
+.login-pf-page::before,
+.login-pf-page::after,
+.pf-c-background-image,
+.pf-c-background-image::before,
+.pf-c-background-image::after,
+.pf-c-login::before,
+.pf-c-login::after,
+.pf-c-login__main-header::before,
+.pf-c-login__main-header::after {
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  content: none !important;
+}
+
+/* ── Layout ── */
+.login-pf-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 48px;
+}
+
+/* Hide the big Keycloak header band */
+#kc-header {
+  display: none;
+}
+
+/* ── Logo / title area ── */
+.login-pf-page .login-pf-header {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 0;
+  padding: 20px 0 20px;
+  text-align: left;
+}
+
+.login-pf-page .login-pf-header::before,
+.login-pf-page .login-pf-header::after {
+  display: none;
+  content: none;
+}
+
+.login-pf-page .login-pf-header h1,
+#kc-page-title {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+/* ── Card ── */
+.login-pf-page .card-pf {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+}
+
+#kc-content {
+  padding: 32px;
+}
+
+/* ── Form elements ── */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.control-label,
+.pf-c-form__label-text,
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.form-control,
+.pf-c-form-control,
+input[type='text'],
+input[type='password'],
+input[type='email'] {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--input-surface) !important;
+  background-clip: padding-box;
+  background-image: none !important;
+  color-scheme: light;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+}
+
+.pf-c-input-group,
+.pf-c-input-group > * {
+  border-radius: var(--radius);
+}
+
+.pf-c-input-group {
+  background: var(--input-surface) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.pf-c-input-group .pf-c-form-control {
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control,
+.pf-c-input-group button[type='button'] {
+  min-width: 46px;
+  min-height: 46px;
+  border: 0 !important;
+  border-left: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  background: var(--input-surface) !important;
+  background-image: none !important;
+  color: var(--muted) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control:hover,
+.pf-c-input-group .pf-c-button.pf-m-control:focus,
+.pf-c-input-group .pf-c-button.pf-m-control:focus-visible,
+.pf-c-input-group .pf-c-button.pf-m-control:active,
+.pf-c-input-group button[type='button']:hover,
+.pf-c-input-group button[type='button']:focus,
+.pf-c-input-group button[type='button']:focus-visible,
+.pf-c-input-group button[type='button']:active {
+  border-left-color: var(--border) !important;
+  background: var(--input-surface) !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control::before,
+.pf-c-input-group .pf-c-button.pf-m-control::after,
+.pf-c-input-group button[type='button']::before,
+.pf-c-input-group button[type='button']::after,
+.pf-c-input-group .pf-c-button.pf-m-control .pf-c-button__icon,
+.pf-c-input-group button[type='button'] .pf-c-button__icon {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.pf-c-input-group:focus-within {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.pf-c-input-group:focus-within .pf-c-form-control,
+.pf-c-input-group:focus-within .pf-c-button.pf-m-control,
+.pf-c-input-group:focus-within button[type='button'] {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+input[type='password']::-webkit-credentials-auto-fill-button,
+input[type='password']::-webkit-strong-password-auto-fill-button,
+input[type='password']::-webkit-textfield-decoration-container {
+  filter: none;
+}
+
+.form-control::placeholder,
+.pf-c-form-control::placeholder,
+input[type='text']::placeholder,
+input[type='password']::placeholder,
+input[type='email']::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.form-control:hover,
+.pf-c-form-control:hover,
+input[type='text']:hover,
+input[type='password']:hover,
+input[type='email']:hover {
+  border-color: rgba(59, 130, 246, 0.42);
+}
+
+.form-control:focus,
+.pf-c-form-control:focus,
+input[type='text']:focus,
+input[type='password']:focus,
+input[type='email']:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+input[type='password'] {
+  border-radius: var(--radius) !important;
+}
+
+.pf-c-input-group input[type='password'] {
+  border-radius: 0 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text);
+  -webkit-box-shadow: 0 0 0 1000px var(--input-surface) inset;
+  border-radius: var(--radius);
+  transition: background-color 9999s ease-out 0s;
+}
+
+/* ── Submit button ── */
+.btn,
+.pf-c-button,
+input[type='submit'],
+button[type='submit'] {
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.btn-primary,
+.pf-c-button.pf-m-primary,
+#kc-login {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 8px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+#kc-login:hover,
+#kc-login:focus {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: none;
+  outline: none;
+}
+
+/* ── Checkbox & links ── */
+input[type='checkbox'] {
+  accent-color: var(--accent);
+}
+
+#kc-form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 8px 0 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+#kc-form-options .checkbox {
+  margin: 0;
+}
+
+#kc-form-options label {
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+#kc-form-options a {
+  font-weight: 600;
+}
+
+#kc-form-options-wrapper,
+#kc-reset-password,
+.login-pf-settings,
+.login-pf-signup {
+  color: var(--muted);
+}
+
+#kc-reset-password a,
+#kc-form-options-wrapper a,
+.login-pf-settings a,
+.login-pf-signup a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ── Alerts ── */
+.alert,
+.pf-c-alert {
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+}
+
+.alert-info,
+.pf-m-info {
+  color: var(--text);
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.alert-danger,
+.alert-error,
+.pf-m-danger {
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+}
+
+/* ── Divider before extra links ── */
+#kc-info-wrapper {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ── Secondary text inside card ── */
+#kc-content-wrapper,
+.instruction {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .login-pf-page {
+    padding: 24px 12px;
+  }
+
+  .login-pf-page .login-pf-header {
+    padding: 16px 0 12px;
+  }
+
+  .login-pf-page .login-pf-header::after {
+    margin-top: 12px;
+    font-size: 0.95rem;
+  }
+
+  #kc-form-options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #kc-content {
+    padding: 24px 20px;
+  }
+}

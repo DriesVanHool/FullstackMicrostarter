@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: fullstackmicrostarter-postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: sql
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.24
+    container_name: fullstackmicrostarter-mailpit
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0
+    container_name: fullstackmicrostarter-keycloak
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mailpit:
+        condition: service_started
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_PORT: 5432
+      KC_DB_URL_DATABASE: postgres
+      KC_DB_SCHEMA: keycloak_db
+      KC_DB_USERNAME: admin
+      KC_DB_PASSWORD: sql
+      KC_SPI_THEME_CACHE_THEMES: "false"
+      KC_SPI_THEME_CACHE_TEMPLATES: "false"
+    ports:
+      - "9090:8080"
+    volumes:
+      - ./keycloak/themes:/opt/keycloak/themes
+    command: ["start-dev"]
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
